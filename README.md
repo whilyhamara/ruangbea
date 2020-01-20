@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ujian-online-ci
 
 Aplikasi Ujian Online Menggunakan CodeIgniter
@@ -40,3 +41,6 @@ Thanks to :
 <li>frankyradio</li>
 <li>and more...</li>
 </ul>
+=======
+# ruangbea
+>>>>>>> 57c9b5b59ba2cdcad9d5775e8d0c0c200b8efc4f

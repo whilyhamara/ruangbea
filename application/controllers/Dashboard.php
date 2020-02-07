@@ -15,28 +15,28 @@ class Dashboard extends CI_Controller {
 	public function admin_box()
 	{
 		$box = [
-			[
-				'box' 		=> 'light-blue',
-				'total' 	=> $this->dashboard->total('jurusan'),
-				'title'		=> 'Jurusan',
-				'icon'		=> 'graduation-cap'
-			],
-			[
-				'box' 		=> 'olive',
-				'total' 	=> $this->dashboard->total('kelas'),
-				'title'		=> 'Kelas',
-				'icon'		=> 'building-o'
-			],
-			[
-				'box' 		=> 'yellow-active',
-				'total' 	=> $this->dashboard->total('dosen'),
-				'title'		=> 'Dosen',
-				'icon'		=> 'user-secret'
-			],
+			// [
+			// 	'box' 		=> 'light-blue',
+			// 	'total' 	=> $this->dashboard->total('jurusan'),
+			// 	'title'		=> 'Jurusan',
+			// 	'icon'		=> 'graduation-cap'
+			// ],
+			// [
+			// 	'box' 		=> 'olive',
+			// 	'total' 	=> $this->dashboard->total('kelas'),
+			// 	'title'		=> 'Kelas',
+			// 	'icon'		=> 'building-o'
+			// ],
+			// [
+			// 	'box' 		=> 'yellow-active',
+			// 	'total' 	=> $this->dashboard->total('dosen'),
+			// 	'title'		=> 'Dosen',
+			// 	'icon'		=> 'user-secret'
+			// ],
 			[
 				'box' 		=> 'red',
 				'total' 	=> $this->dashboard->total('mahasiswa'),
-				'title'		=> 'Mahasiswa',
+				'title'		=> 'Pengguna',
 				'icon'		=> 'user'
 			],
 		];

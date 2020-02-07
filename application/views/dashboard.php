@@ -100,14 +100,14 @@
                     <th>Email</th>
                     <td><?=$mahasiswa->email?></td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th>Jurusan</th>
                     <td><?=$mahasiswa->nama_jurusan?></td>
                 </tr>
                 <tr>
                     <th>Kelas</th>
                     <td><?=$mahasiswa->nama_kelas?></td>
-                </tr>
+                </tr> -->
             </table>
         </div>
     </div>
@@ -117,13 +117,9 @@
                 <h3 class="box-title">Pemberitahuan</h3>
             </div>
             <div class="box-body">
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem in animi quibusdam nihil esse ratione, nulla sint enim natus, aut mollitia quas veniam, tempore quia!</p>
+                <p>Ini adalah Pemberitahuan</p>
                 <ul class="pl-4">
-                    <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, culpa.</li>
-                    <li>Provident dolores doloribus, fugit aperiam alias tempora saepe non omnis.</li>
-                    <li>Doloribus sed eum et repellat distinctio a repudiandae quia voluptates.</li>
-                    <li>Adipisci hic rerum illum odit possimus voluptatibus ad aliquid consequatur.</li>
-                    <li>Laudantium sapiente architecto excepturi beatae est minus, labore non libero.</li>
+                    <li>Website ini dibuat oleh Makaryo Studio</li>
                 </ul>
             </div>
         </div>

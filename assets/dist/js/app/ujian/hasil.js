@@ -51,7 +51,6 @@ $(document).ready(function() {
       },
       { data: "nama_ujian" },
       { data: "nama_matkul" },
-      { data: "nama_dosen" },
       { data: "jumlah_soal" },
       { data: "waktu" },
       { data: "tgl_mulai" },
@@ -62,6 +61,7 @@ $(document).ready(function() {
     ],
     columnDefs: [
       {
+        // targets: 7,
         targets: 7,
         data: "id_ujian",
         render: function(data, type, row, meta) {

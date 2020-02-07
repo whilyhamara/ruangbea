@@ -27,13 +27,13 @@
 			<li class="<?= $page === 'dashboard' ? "active" : "" ?>"><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 			<?php if($this->ion_auth->is_admin()) : ?>
 			<li class="treeview <?= in_array($page, $master)  ? "active menu-open" : ""  ?>">
-				<a href="#"><i class="fa fa-folder"></i> <span>Data Master</span>
+				<a href="#"><i class="fa fa-folder"></i> <span>Update Data</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="<?=$page==='jurusan'?"active":""?>">
+					<!-- <li class="<?=$page==='jurusan'?"active":""?>">
 						<a href="<?=base_url('jurusan')?>">
 							<i class="fa fa-circle-o"></i> 
 							Master Jurusan
@@ -44,28 +44,28 @@
 							<i class="fa fa-circle-o"></i>
 							Master Kelas
 						</a>
-					</li>
+					</li> -->
 					<li class="<?=$page==='matkul'?"active":""?>">
 						<a href="<?=base_url('matkul')?>">
 							<i class="fa fa-circle-o"></i>
-							Master Mata Kuliah
+							Master Bidang
 						</a>
-					</li>
+					<!-- </li>
 					<li class="<?=$page==='dosen'?"active":""?>">
 						<a href="<?=base_url('dosen')?>">
 							<i class="fa fa-circle-o"></i>
 							Master Dosen
 						</a>
-					</li>
+					</li> -->
 					<li class="<?=$page==='mahasiswa'?"active":""?>">
 						<a href="<?=base_url('mahasiswa')?>">
 							<i class="fa fa-circle-o"></i>
-							Master Mahasiswa
+							Master Pengguna
 						</a>
 					</li>
 				</ul>
 			</li>
-			<li class="treeview <?= in_array($page, $relasi)  ? "active menu-open" : ""  ?>">
+			<!-- <li class="treeview <?= in_array($page, $relasi)  ? "active menu-open" : ""  ?>">
 				<a href="#"><i class="fa fa-link"></i> <span>Relasi</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
@@ -85,19 +85,36 @@
 						</a>
 					</li>
 				</ul>
+			</li> -->
+			<?php endif; ?>
+			<!-- Materi untuk admin -->
+			<?php if( $this->ion_auth->is_admin()) : ?>
+			<li class="<?=$page==='materi'?"active":""?>">
+				<a href="<?=base_url('materi')?>" rel="noopener noreferrer">
+					<i class="fa fa-book"></i> <span>Materi Management</span>
+				</a>
 			</li>
 			<?php endif; ?>
-			<?php if( $this->ion_auth->is_admin() || $this->ion_auth->in_group('dosen') ) : ?>
+			<!-- Materi untuk Siswa -->
+			<?php if( $this->ion_auth->in_group('mahasiswa') ) : ?>
+			<li class="<?=$page==='materi'?"active":""?>">
+				<a href="<?=base_url('materi')?>" rel="noopener noreferrer">
+					<i class="fa fa-book-text-o"></i> <span>Materi Siswa</span>
+				</a>
+			</li>
+			<?php endif; ?>
+
+			<?php if( $this->ion_auth->is_admin() ) : ?>
 			<li class="<?=$page==='soal'?"active":""?>">
 				<a href="<?=base_url('soal')?>" rel="noopener noreferrer">
 					<i class="fa fa-file-text-o"></i> <span>Bank Soal</span>
 				</a>
 			</li>
 			<?php endif; ?>
-			<?php if( $this->ion_auth->in_group('dosen') ) : ?>
+			<?php if( $this->ion_auth->is_admin()) : ?>
 			<li class="<?=$page==='ujian'?"active":""?>">
 				<a href="<?=base_url('ujian/master')?>" rel="noopener noreferrer">
-					<i class="fa fa-chrome"></i> <span>Ujian</span>
+					<i class="fa fa-chrome"></i> <span>Ujian Management</span>
 				</a>
 			</li>
 			<?php endif; ?>
@@ -118,11 +135,11 @@
 			<?php endif; ?>
 			<?php if($this->ion_auth->is_admin()) : ?>
 			<li class="header">ADMINISTRATOR</li>
-			<li class="<?=$page==='users'?"active":""?>">
+			<!-- <li class="<?=$page==='users'?"active":""?>">
 				<a href="<?=base_url('users')?>" rel="noopener noreferrer">
 					<i class="fa fa-users"></i> <span>User Management</span>
 				</a>
-			</li>
+			</li> -->
 			<li class="<?=$page==='settings'?"active":""?>">
 				<a href="<?=base_url('settings')?>" rel="noopener noreferrer">
 					<i class="fa fa-cog"></i> <span>Settings</span>

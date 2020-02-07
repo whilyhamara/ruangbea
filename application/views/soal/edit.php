@@ -62,7 +62,7 @@
                             ?>
                             
                             <div class="col-sm-12">
-                                <label for="jawaban_<?= $abj; ?>" class="control-label text-center">Jawaban <?= $ABJ; ?></label>
+                                <label for="jawaban_<?= $abj; ?>" class="control-label text-center">Jawabano <?= $ABJ; ?></label>
                                 <div class="row">
                                     <div class="form-group col-sm-3">
                                         <input type="file" name="<?= $file; ?>" class="form-control">

@@ -10,7 +10,7 @@
 					Computer Based Test v2
 				</div>
 				<!-- Default to the left -->
-				<strong>Copyright &copy; 2019. By <a href="https://instagram.com/mghifariarfan">Muhammad Ghifari Arfananda</a>. </strong> All rights reserved
+				<strong>Copyright &copy; 2019. By <a href="https://makaryostudio.com">Makaryo Studio</a>. </strong> All rights reserved
 			</footer>
 
 			</div>

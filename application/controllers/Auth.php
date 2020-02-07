@@ -20,6 +20,7 @@ class Auth extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 
+
 	public function index()
 	{
 		if ($this->ion_auth->logged_in()){
@@ -48,6 +49,62 @@ class Auth extends CI_Controller
 		$this->load->view('_templates/auth/_header.php');
 		$this->load->view('auth/login', $this->data);
 		$this->load->view('_templates/auth/_footer.php');
+	}
+
+/*membuat register*/
+	public function register()
+	{
+		$data = array('content' => 'auth/register',
+		'message'=>null);
+		$this->load->view('_templates/auth/_header.php');
+		$this->load->view('dashboard', $this->$data);
+		$this->load->view('_templates/auth/_footer.php');		
+	}
+/*cek register*/
+	public function cek_regis()
+	{
+		if ($this->input->post()) {
+			$this->load->library('form_validation');
+			$this->load->helper(array('security'));
+				
+			$this->form_validation->set_rules('nim', 'NIM', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nim);
+			$this->form_validation->set_rules('nama', 'Nama', 'required|trim|min_length[3]|max_length[50]');
+			$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $u_email);
+			$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+			$this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
+			$this->form_validation->set_rules('kelas', 'Kelas', 'required');
+
+			$this->form_validation->set_message('required', 'Kolom {field} wajib diisi');
+
+			if ($this->form_validation->run()==false) {
+				$data = array('content' => 'auth/register',
+				'message'=>validation_errors());
+				$this->load->view('dashboard', $data);
+			}else{
+				$password = $this->input->post('password');
+				$email = $this->input->post('email');
+				$additional_data = array(
+					'first_name' => $this->input->post('first_name'),
+					'last_name' => $this->input->post('last_name'),
+					'phone'=>$this->input->post('phone')
+										);
+				if (!$this->ion_auth->email_check($email))//cek email sudah terdaftar apa belum
+				{
+					$group = array('2'); // Sets user ke grup member
+					if ($this->ion_auth->register($username, $password, $email, $additional_data, $group)) {
+						redirect('login');
+					}else{
+						$data = array('content' => 'home/formregistrasi',
+						'message'=>'Proses registrasi gagal diproses');
+						$this->load->view('templates/template-home', $data);
+					}
+				}else{
+					$data = array('content' => 'home/formregistrasi',
+					'message'=>'Email sudah terdaftar');
+					$this->load->view('templates/template-home', $data);
+				}
+			}
+		}		
 	}
 
 	public function cek_login()
@@ -99,7 +156,7 @@ class Auth extends CI_Controller
 	public function logout()
 	{
 		$this->ion_auth->logout();
-		redirect('login','refresh');
+		redirect('welcome','refresh');
 	}
 
 	/**

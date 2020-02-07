@@ -371,6 +371,8 @@ class Ion_auth
 		return $recheck;
 	}
 
+	
+
 	/**
 	 * @return int|null The user's ID from the session user data or NULL if not found
 	 * @author jrmadsen67

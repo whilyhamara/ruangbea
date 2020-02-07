@@ -26,11 +26,11 @@ class HasilUjian extends CI_Controller {
 	{
 		$nip_dosen = null;
 		
-		if( $this->ion_auth->in_group('dosen') ) {
-			$nip_dosen = $this->user->username;
-		}
+		// if( $this->ion_auth->in_group('dosen') ) {
+		// 	$nip_dosen = $this->user->username;
+		// }
 
-		$this->output_json($this->ujian->getHasilUjian($nip_dosen), false);
+		$this->output_json($this->ujian->getHasilUjian(), false);
 	}
 
 	public function NilaiMhs($id)

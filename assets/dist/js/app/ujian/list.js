@@ -30,7 +30,7 @@ $(document).ready(function () {
             },
             { "data": 'nama_ujian' },
             { "data": 'nama_matkul' },
-            { "data": 'nama_dosen' },
+            // { "data": 'nama_dosen' },
             { "data": 'jumlah_soal' },
             { "data": 'waktu' },
             {
@@ -40,7 +40,8 @@ $(document).ready(function () {
         ],
         columnDefs: [
             {
-                "targets": 6,
+                // "targets": 6,
+                "targets": 5,
                 "data": {
                     "id_ujian": "id_ujian",
                     "ada": "ada"

@@ -23,7 +23,7 @@ class Ujian extends CI_Controller {
 
     public function akses_dosen()
     {
-        if ( !$this->ion_auth->in_group('dosen') ){
+        if ( !$this->ion_auth->logged_in()){
 			show_error('Halaman ini khusus untuk dosen untuk membuat Test Online, <a href="'.base_url('dashboard').'">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
 		}
     }

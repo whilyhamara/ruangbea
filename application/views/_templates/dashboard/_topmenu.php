@@ -1,6 +1,6 @@
 <a href="<?=base_url('dashboard')?>" class="logo">
-    <span class="logo-mini"><b>CBT</b></span>
-    <span class="logo-lg"><b>C</b>omputer <b>B</b>ased <b>T</b>est </span>
+    <span class="logo-mini"><b>Ruang Beasiswa</b></span>
+    <span class="logo-lg"><b>R</b>uang <b>B</b>easiswa  </span>
 </a>
 
 <nav class="navbar navbar-static-top" role="navigation">

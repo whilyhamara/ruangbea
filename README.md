@@ -1,6 +1,5 @@
-<h2>Online Exam Information System<h2>
-  <hr>
-<h2>Aplikasi Ujian Online Menggunakan CodeIgniter<h2>
+<h2>Online Exam Information System</h2>
+<h2>Aplikasi Ujian Online Menggunakan CodeIgniter</h2>
 
 <h4>Features</h4>
 <ul>
@@ -23,7 +22,7 @@ Thanks to :
 
 <h4>Additional Notes</h4>
 <ul>
-  <li>This application is built only for learning purposes and not for commercial purposes</li>
+  <li>This application was built only for learning purposes and not for commercial purposes</li>
   <li>Please use everything wisely</li>
 </ul>
 =======

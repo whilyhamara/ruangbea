@@ -10,22 +10,13 @@
                     <div class="col-sm-8 col-sm-offset-2">
                         <div class="form-group col-sm-12">
                             <label>Materi (Mata Kuliah)</label>
-                            <?php if( $this->ion_auth->is_admin() ) : ?>
-                                <!-- select dosen_id -->
-                            <select name="matkul_id" required="required" id="matkul_id" class="select2 form-group" style="width:100% !important">
-                                <option value="" disabled selected>Pilih Mata Kuliah</option>
-                                <!-- foreach $dosen as $d -->
-                                <?php foreach ($matkul as $d) : ?>
-                                    <!-- <option value="<?=$d->id_dosen?>:<?=$d->matkul_id?>"><?=$d->nama_dosen?> (<?=$d->nama_matkul?>)</option> -->
-                                    <option value="<?=$d->id_matkul?>"><?=$d->nama_matkul?></option>
-                                <?php endforeach; ?>
+                            
+                            <select name="matkul_id" required="required" id="matkul_id" class="select2 form-group" style="width:100%">
+                            <?php foreach ($matkul as $d) : ?>
+                                <option value="<?=$d->id_matkul?>"><?=$d->nama_matkul?></option>
+                            <?php endforeach; ?>
                             </select>
-                            <small class="help-block" style="color: #dc3545"><?=form_error('matkul_id')?></small>
-                            <?php else : ?>
-                            <!-- <input type="hidden" name="dosen_id" value="<?=$dosen->id_dosen;?>"> -->
-                            <!-- <input type="hidden" name="matkul_id" value="<?=$dosen->matkul_id;?>"> -->
-                            <!-- <input type="text" readonly="readonly" class="form-control" value="<?=$dosen->nama_dosen; ?> (<?=$dosen->nama_matkul; ?>)"> -->
-                            <?php endif; ?>
+                            <small class="help-block" style="color: #dc3545"><?=form_error('matkul')?></small>
                         </div>
                         
                         <div class="col-sm-12">

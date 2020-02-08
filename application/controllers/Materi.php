@@ -7,12 +7,9 @@ class Materi extends CI_Controller {
 		parent::__construct();
 		if (!$this->ion_auth->logged_in()){
 			redirect('auth');
-		}
-        else 
-  //       if ( !$this->ion_auth->is_admin() && !$this->ion_auth->in_group('dosen') )
-  //       {
-		// 	show_error('Hanya Administrator Kunam dan dosen yang diberi hak untuk mengakses halaman ini, <a href="'.base_url('dashboard').'">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
-		// }
+        } else if (!$this->ion_auth->is_admin()) {
+            show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        }
 		$this->load->library(['datatables', 'form_validation']);// Load Library Ignited-Datatables
 		$this->load->helper('my');// Load Library Ignited-Datatables
 		$this->load->model('Master_model', 'master');
@@ -112,7 +109,7 @@ class Materi extends CI_Controller {
 
 	public function data($id=null)
 	{
-		$this->output_json($this->materi->getDataMateri($id), false);
+		$this->output_json($this->materi->getDataMateri(), false);
     }
 
     public function validasi()
@@ -143,98 +140,49 @@ class Materi extends CI_Controller {
         
         return $this->load->library('upload', $config);
     }
-    
+
     public function save()
     {
+        
         $method = $this->input->post('method', true);
         $this->validasi();
         $this->file_config();
         if($this->form_validation->run() === FALSE){
-            $method==='add'? $this->add() : $this->edit();
+            if ($method==='add') {
+                $this->add();
+            } else {
+                $this->add();
+            }
         }else{
             $data = [
+                'matkul_id' => $this->input->post('matkul_id', true),
                 'judul_materi' => $this->input->post('judul_materi', true),
                 'isi_materi'   => $this->input->post('isi_materi', true),
-                // 'bobot'     => $this->input->post('bobot', true),
             ];
-            
-            // $abjad = ['a'];
-            
-            // // Inputan Opsi
-            // foreach ($abjad as $abj) {
-            //     $data['isi_materi'.$abj]    = $this->input->post('judul_materi'.$abj, true);
+            $data['created_on'] = time();
+            $data['update_on'] = time();
+            //insert data
+            $goit = $this->master->create('tb_materi', $data);
+            // if ($goit) {
+            //     $this->output_json(['status' => true]);
+            // } else {
+            //     $this->output_json(['status' => true]);
             // }
 
-            // $i = 0;
-            // foreach ($_FILES as $key => $val) {
-            //     $img_src = FCPATH.'uploads/bank_soal/';
-            //     $getmateri = $this->materi->getMateriById($this->input->post('id_materi', true));
-                
-            //     $error = '';
-            //     if($key === 'file_materi'){
-            //         if(!empty($_FILES['file_materi']['name'])){
-            //             if (!$this->upload->do_upload('file_materi')){
-            //                 $error = $this->upload->display_errors();
-            //                 show_error($error, 500, 'File Materi Error');
-            //                 exit();
-            //             }else{
-            //                 if($method === 'edit'){
-            //                     if(!unlink($img_src.$getsoal->file)){
-            //                         show_error('Error saat delete gambar <br/>'.var_dump($getsoal), 500, 'Error Edit Gambar');
-            //                         exit();
-            //                     }
-            //                 }
-            //                 $data['file'] = $this->upload->data('file_name');
-            //                 $data['tipe_file'] = $this->upload->data('file_type');
-            //             }
-            //         }
-            //     }else{
-            //         $file_abj = 'file_'.$abjad[$i];
-            //         if(!empty($_FILES[$file_abj]['name'])){    
-            //             if (!$this->upload->do_upload($key)){
-            //                 $error = $this->upload->display_errors();
-            //                 show_error($error, 500, 'File Opsi '.strtoupper($abjad[$i]).' Error');
-            //                 exit();
-            //             }else{
-            //                 if($method === 'edit'){
-            //                     if(!unlink($img_src.$getmateri->$file_abj)){
-            //                         show_error('Error saat delete gambar', 500, 'Error Edit Gambar');
-            //                         exit();
-            //                     }
-            //                 }
-            //                 $data[$file_abj] = $this->upload->data('file_name');
-            //             }
-            //         }
-            //         $i++;
-            //     }
-            // }
-                
-            if($this->ion_auth->logged_in()){
-                //$pecah = $this->input->post('dosen_id', true);
-                // $data['dosen_id'] = 1;
-                $data['matkul_id'] = $this->input->post('matkul_id', true);
-            }else{
-                // $data['dosen_id'] = $this->input->post('dosen_id', true);
-                $data['matkul_id'] = $this->input->post('matkul_id', true);
-            }
 
-            if($method==='add'){
-                //push array
-                $data['created_on'] = time();
-                $data['update_on'] = time();
-                //insert data
-                $this->master->create('tb_materi', $data);
-            }else if($method==='edit'){
-                //push array
-                $data['update_on'] = time();
-                //update data
-                $id_materi = $this->input->post('id_materi', true);
-                $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
-            }else{
-                show_error('Method tidak diketahui', 404);
-            }
-            redirect('materi');
+            // if($method==='add'){
+            //     //push array
+            // }else if($method==='edit'){
+            //     //push array
+            //     $data['update_on'] = time();
+            //     //update data
+            //     $id_materi = $this->input->post('id_materi', true);
+            //     $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
+            // }else{
+            //     show_error('Method tidak diketahui', 404);
+            // }
         }
+        var_dump($this->input->post());
     }
 
     public function delete()
@@ -272,4 +220,98 @@ class Materi extends CI_Controller {
             }
         }
     }
+
+    // public function saves()
+    // {
+    //     $method = $this->input->post('method', true);
+    //     $this->validasi();
+    //     $this->file_config();
+    //     if($this->form_validation->run() === FALSE){
+    //         $method==='add'? $this->add() : $this->edit();
+    //     }else{
+    //         $data = [
+    //             'judul_materi' => $this->input->post('judul_materi', true),
+    //             'isi_materi'   => $this->input->post('isi_materi', true),
+    //             // 'bobot'     => $this->input->post('bobot', true),
+    //         ];
+            
+    //         // $abjad = ['a'];
+            
+    //         // // Inputan Opsi
+    //         // foreach ($abjad as $abj) {
+    //         //     $data['isi_materi'.$abj]    = $this->input->post('judul_materi'.$abj, true);
+    //         // }
+
+    //         // $i = 0;
+    //         // foreach ($_FILES as $key => $val) {
+    //         //     $img_src = FCPATH.'uploads/bank_soal/';
+    //         //     $getmateri = $this->materi->getMateriById($this->input->post('id_materi', true));
+                
+    //         //     $error = '';
+    //         //     if($key === 'file_materi'){
+    //         //         if(!empty($_FILES['file_materi']['name'])){
+    //         //             if (!$this->upload->do_upload('file_materi')){
+    //         //                 $error = $this->upload->display_errors();
+    //         //                 show_error($error, 500, 'File Materi Error');
+    //         //                 exit();
+    //         //             }else{
+    //         //                 if($method === 'edit'){
+    //         //                     if(!unlink($img_src.$getsoal->file)){
+    //         //                         show_error('Error saat delete gambar <br/>'.var_dump($getsoal), 500, 'Error Edit Gambar');
+    //         //                         exit();
+    //         //                     }
+    //         //                 }
+    //         //                 $data['file'] = $this->upload->data('file_name');
+    //         //                 $data['tipe_file'] = $this->upload->data('file_type');
+    //         //             }
+    //         //         }
+    //         //     }else{
+    //         //         $file_abj = 'file_'.$abjad[$i];
+    //         //         if(!empty($_FILES[$file_abj]['name'])){    
+    //         //             if (!$this->upload->do_upload($key)){
+    //         //                 $error = $this->upload->display_errors();
+    //         //                 show_error($error, 500, 'File Opsi '.strtoupper($abjad[$i]).' Error');
+    //         //                 exit();
+    //         //             }else{
+    //         //                 if($method === 'edit'){
+    //         //                     if(!unlink($img_src.$getmateri->$file_abj)){
+    //         //                         show_error('Error saat delete gambar', 500, 'Error Edit Gambar');
+    //         //                         exit();
+    //         //                     }
+    //         //                 }
+    //         //                 $data[$file_abj] = $this->upload->data('file_name');
+    //         //             }
+    //         //         }
+    //         //         $i++;
+    //         //     }
+    //         // }
+                
+    //         if($this->ion_auth->logged_in()){
+    //             //$pecah = $this->input->post('dosen_id', true);
+    //             // $data['dosen_id'] = 1;
+    //             $data['matkul_id'] = $this->input->post('matkul_id', true);
+    //         }else{
+    //             // $data['dosen_id'] = $this->input->post('dosen_id', true);
+    //             $data['matkul_id'] = $this->input->post('matkul_id', true);
+    //         }
+
+    //         if($method==='add'){
+    //             //push array
+    //             $data['created_on'] = time();
+    //             $data['update_on'] = time();
+    //             //insert data
+    //             $this->master->create('tb_materi', $data);
+    //         }else if($method==='edit'){
+    //             //push array
+    //             $data['update_on'] = time();
+    //             //update data
+    //             $id_materi = $this->input->post('id_materi', true);
+    //             $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
+    //         }else{
+    //             show_error('Method tidak diketahui', 404);
+    //         }
+    //         redirect('materi');
+    //     }
+    // }
+
 }

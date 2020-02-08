@@ -26,7 +26,7 @@ class Materi_model extends CI_Model {
         return $this->datatables->generate();
     }
 
-    public function getDataMateri($id)
+    public function getDataMateri()
     {
         $this->datatables->select('a.id_materi, b.nama_matkul, a.judul_materi, a.isi_materi, FROM_UNIXTIME(a.created_on) as created_on, FROM_UNIXTIME(a.update_on) as update_on');
         $this->datatables->from('tb_materi a');

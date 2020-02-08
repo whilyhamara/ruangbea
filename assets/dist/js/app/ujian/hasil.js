@@ -19,19 +19,19 @@ $(document).ready(function() {
     buttons: [
       {
         extend: "copy",
-        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6] }
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
       },
       {
         extend: "print",
-        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6] }
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
       },
       {
         extend: "excel",
-        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6] }
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
       },
       {
         extend: "pdf",
-        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6] }
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
       }
     ],
     oLanguage: {
@@ -49,20 +49,31 @@ $(document).ready(function() {
         orderable: false,
         searchable: false
       },
-      { data: "nama_ujian" },
-      { data: "nama_matkul" },
-      { data: "jumlah_soal" },
-      { data: "waktu" },
-      { data: "tgl_mulai" },
-      {
+      { data: "nama_ujian",
         orderable: false,
+        searchable: false
+      },
+      { data: "nama_matkul", 
+        orderable: false,
+        searchable: false
+      },
+      { data: "jumlah_soal", 
+        orderable: false,
+        searchable: false
+      },
+      { data: "waktu", 
+        orderable: false,
+        searchable: false
+      },
+      { data: "tgl_mulai",
+        orderable: true,
         searchable: false
       }
     ],
     columnDefs: [
       {
         // targets: 7,
-        targets: 7,
+        targets: 6,
         data: "id_ujian",
         render: function(data, type, row, meta) {
           return `
@@ -75,7 +86,7 @@ $(document).ready(function() {
         }
       }
     ],
-    order: [[1, "asc"]],
+    order: [[5, "asc"]],
     rowId: function(a) {
       return a;
     },

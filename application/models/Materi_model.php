@@ -39,9 +39,26 @@ class Materi_model extends CI_Model {
         return $this->datatables->generate();
     }
 
+    public function getDataMateriTanpaIsi()
+    {
+        $this->datatables->select('a.id_materi, b.nama_matkul, a.judul_materi, FROM_UNIXTIME(a.created_on) as created_on, FROM_UNIXTIME(a.update_on) as update_on');
+        $this->datatables->from('tb_materi a');
+        $this->datatables->join('matkul b', 'b.id_matkul=a.matkul_id');
+        return $this->datatables->generate();
+    }    
+
     public function getMateriById($id)
     {
         return $this->db->get_where('tb_materi', ['id_materi' => $id])->row();
+    }
+
+    public function getMatkulByMateri($id)
+    {
+        $this->db->select('a.id_materi, a.matkul_id, b.nama_matkul');
+        $this->db->from('tb_materi a');
+        $this->db->join('matkul b','b.id_matkul = a.matkul_id');
+        $this->db->where('a.id_materi = ', $id);
+        return $this->db->get()->row();
     }
 
     public function getMatkulDosen($nip)

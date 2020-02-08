@@ -20,7 +20,6 @@
                 <th>No.</th>
                 <th>Nama Ujian</th>
                 <th>Bidang</th>
-                <th>xxx</th>
                 <th>Jumlah Soal</th>
                 <th>Waktu</th>
                 <th>Tanggal</th>
@@ -34,7 +33,6 @@
                 <th>No.</th>
                 <th>Nama Ujian</th>
                 <th>Bidang</th>
-                <th>xxx</th>
                 <th>Jumlah Soal</th>
                 <th>Waktu</th>
                 <th>Tanggal</th>

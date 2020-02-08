@@ -30,7 +30,7 @@ $(document).ready(function () {
                         "type": "success",
                         "text": "Data berhasil disimpan"
                     }).then(result => {
-                        window.location.href = base_url+"materi/master";
+                        window.location.href = base_url+"materi";
                     });
                 } else {
                     if (data.errors) {

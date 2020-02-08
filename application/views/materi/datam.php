@@ -37,9 +37,15 @@
         <table id="materi" class="w-100 table table-striped table-bordered table-hover">
         <thead>
             <tr>
+            	<?php if ( $this->ion_auth->is_admin() || $this->ion_auth->in_group('dosen') ) { ?>
 				<th class="text-center">
 					<input type="checkbox" class="select_all">
 				</th>
+				<?php } else (!$this->ion_auth->is_admin() || !$this->ion_auth->in_group('dosen') ) ?>
+				<th class="text-center">
+					<input type="checkbox" class="select_all" disabled>
+				</th>
+				<?php ?>
                 <th width="25">No.</th>
                 <th>Bidang</th>
                 <th>Judul Materi</th>
@@ -49,9 +55,15 @@
         </thead>
         <tfoot>
             <tr>
+            	<?php if ( $this->ion_auth->is_admin() || $this->ion_auth->in_group('dosen') ) { ?>
 				<th class="text-center">
 					<input type="checkbox" class="select_all">
 				</th>
+				<?php } else (!$this->ion_auth->is_admin() || !$this->ion_auth->in_group('dosen') ) ?>
+				<th class="text-center">
+					<input type="checkbox" class="select_all" disabled>
+				</th>
+				<?php ?>
                 <th width="25">No.</th>
                 <th>Bidang</th>
                 <th>Judul Materi</th>
@@ -63,9 +75,10 @@
     </div>
 	<?=form_close();?>
 </div>
-
+<?php if ( $this->ion_auth->is_admin() || $this->ion_auth->in_group('dosen') ) : ?>
 <script src="<?=base_url()?>assets/dist/js/app/materi/data.js"></script>
-
+<?php endif; ?>
+<script src="<?=base_url()?>assets/dist/js/app/materi/datam.js"></script>
 <?php if ( $this->ion_auth->is_admin() || $this->ion_auth->in_group('dosen') ) : ?>
 <script type="text/javascript">
 $(document).ready(function(){

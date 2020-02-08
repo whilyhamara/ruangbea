@@ -79,23 +79,23 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <div class="box box-default">
-            <div class="box-header with-border">
+        <div class="box box-solid">
+            <div class="box-header with-border bg-blue">
                 <h3 class="box-title">Informasi Akun</h3>
             </div>
             <table class="table table-hover">
-                <tr>
+<!--                 <tr>
                     <th>NIM</th>
                     <td><?=$mahasiswa->nim?></td>
-                </tr>
+                </tr> -->
                 <tr>
                     <th>Nama</th>
                     <td><?=$mahasiswa->nama?></td>
                 </tr>
-                <tr>
+<!--                 <tr>
                     <th>Jenis Kelamin</th>
                     <td><?=$mahasiswa->jenis_kelamin === 'L' ? "Laki-laki" : "Perempuan" ;?></td>
-                </tr>
+                </tr> -->
                 <tr>
                     <th>Email</th>
                     <td><?=$mahasiswa->email?></td>

@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-3">
+<!-- 	<div class="col-sm-3">
         <div class="alert bg-green">
             <h4>Kelas<i class="pull-right fa fa-building-o"></i></h4>
             <span class="d-block"> <?=$mhs->nama_kelas?></span>                
@@ -10,14 +10,14 @@
             <h4>Jurusan<i class="pull-right fa fa-graduation-cap"></i></h4>
             <span class="d-block"> <?=$mhs->nama_jurusan?></span>                
         </div>
-    </div>
-    <div class="col-sm-3">
+    </div> -->
+    <div class="col-sm-6">
         <div class="alert bg-yellow">
             <h4>Tanggal<i class="pull-right fa fa-calendar"></i></h4>
             <span class="d-block"> <?=strftime('%A, %d %B %Y')?></span>                
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
         <div class="alert bg-red">
             <h4>Jam<i class="pull-right fa fa-clock-o"></i></h4>
             <span class="d-block"> <span class="live-clock"><?=date('H:i:s')?></span></span>                

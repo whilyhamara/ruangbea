@@ -7,8 +7,9 @@ class Materi extends CI_Controller {
 		parent::__construct();
 		if (!$this->ion_auth->logged_in()){
 			redirect('auth');
-        } else if (!$this->ion_auth->is_admin()) {
+        } else if (!$this->ion_auth->in_group('admin')&&!$this->ion_auth->in_group('dosen')&&!$this->ion_auth->in_group('mahasiswa')) {
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+            
         }
 		$this->load->library(['datatables', 'form_validation']);// Load Library Ignited-Datatables
 		$this->load->helper('my');// Load Library Ignited-Datatables
@@ -23,6 +24,11 @@ class Materi extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output($data);
     }
 
+    public function indexs()
+    {
+        $this->load->view('materi/data');
+    }
+
     public function index()
 	{
         $user = $this->ion_auth->user()->row();
@@ -34,16 +40,21 @@ class Materi extends CI_Controller {
         
         if($this->ion_auth->logged_in()){
             //Jika admin maka tampilkan semua matkul
-            $data['matkul'] = $this->master->getAllMatkul();
+            $data['matkul'] = $this->materi->getAllMatkul();
         }else{
             //Jika bukan maka matkul dipilih otomatis sesuai matkul dosen
-            $data['matkul'] = $this->materi->getMatkulDosen($user->username);
+            $data['matkul'] = $this->materi->getAllMatkul();
         }
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('materi/data');
+        if (!$this->ion_auth->in_group('mahasiswa')) {
+            $this->indexs();
+        } else if ($this->ion_auth->in_group('mahasiswa')) {
+            $this->load->view('materi/datam');
+        }
 		$this->load->view('_templates/dashboard/_footer.php');
     }
+
     
     public function detail($id)
     {
@@ -51,12 +62,13 @@ class Materi extends CI_Controller {
 		$data = [
 			'user'      => $user,
 			'judul'	    => 'Materi',
-            'subjudul'  => 'Edit Materi',
-            'materi'      => $this->materi->getMateriById($id),
+            'subjudul'  => 'Detail Materi',
+            'materi'    => $this->materi->getMateriById($id),
+            'matkul'    => $this->materi->getMatkulByMateri($id)
         ];
-
         $this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('Materi/detail');
+
+        $this->load->view('materi/detail');
 		$this->load->view('_templates/dashboard/_footer.php');
     }
     
@@ -91,16 +103,16 @@ class Materi extends CI_Controller {
 			'user'      => $user,
 			'judul'	    => 'Materi',
             'subjudul'  => 'Edit Materi',
-            'materi'      => $this->materi->getMateriById($id),
+            'materi'    => $this->materi->getMateriById($id),
+            'matkul'    => $this->materi->getAllMatkul()
         ];
+        // $dat['matkulis'] = $this->materi->getMatkulByMateri($id);
         
-        if($this->ion_auth->logged_in()){
-            //Jika admin maka tampilkan semua matkul
-            $data['dosen'] = $this->materi->getAllDosen();
-        }else{
-            //Jika bukan maka matkul dipilih otomatis sesuai matkul dosen
-            $data['dosen'] = $this->materi->getMatkulDosen($user->username);
-        }
+        // if($this->ion_auth->logged_in()){
+        //     $data['matkul'] = $this->materi->getAllMatkul();
+        // }else{
+        //     $data['matkul'] = $this->materi->getAllMatkul();
+        // }
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('materi/edit');
@@ -112,9 +124,14 @@ class Materi extends CI_Controller {
 		$this->output_json($this->materi->getDataMateri(), false);
     }
 
+    public function datam($id=null)
+    {
+        $this->output_json($this->materi->getDataMateri(), false);
+    }
+
     public function validasi()
     {
-        if($this->ion_auth->is_admin()){
+        if($this->ion_auth->is_admin() || $this->ion_auth->in_group('dosen')){
             $this->form_validation->set_rules('dosen_id', 'Dosen', 'required');
         }
         $this->form_validation->set_rules('judul_materi', 'judul materi', 'required');
@@ -148,11 +165,16 @@ class Materi extends CI_Controller {
         $this->validasi();
         $this->file_config();
         if($this->form_validation->run() === FALSE){
-            if ($method==='add') {
-                $this->add();
-            } else {
-                $this->add();
-            }
+            $data = [
+                'matkul_id' => $this->input->post('matkul_id', true),
+                'judul_materi' => $this->input->post('judul_materi', true),
+                'isi_materi'   => $this->input->post('isi_materi', true),
+            ];
+            $data['created_on'] = time();
+            $data['update_on'] = time();
+            //insert data
+            $this->master->create('tb_materi', $data);
+            redirect('materi');
         }else{
             $data = [
                 'matkul_id' => $this->input->post('matkul_id', true),
@@ -162,7 +184,7 @@ class Materi extends CI_Controller {
             $data['created_on'] = time();
             $data['update_on'] = time();
             //insert data
-            $goit = $this->master->create('tb_materi', $data);
+            $this->master->create('tb_materi', $data);
             // if ($goit) {
             //     $this->output_json(['status' => true]);
             // } else {
@@ -182,35 +204,36 @@ class Materi extends CI_Controller {
             //     show_error('Method tidak diketahui', 404);
             // }
         }
-        var_dump($this->input->post());
+
     }
 
     public function delete()
     {
+        $this->validasi();
         $chk = $this->input->post('checked', true);
         
         // Delete File
-        foreach($chk as $id){
-            $abjad = ['a'];
-            $path = FCPATH.'uploads/bank_soal/';
-            $materi = $this->materi->getMateriById($id);
-            // Hapus File Soal
-            if(!empty($materi->file)){
-                if(file_exists($path.$materi->file)){
-                    unlink($path.$materi->file);
-                }
-            }
-            //Hapus File Opsi
-            $i = 0; //index
-            foreach ($abjad as $abj) {
-                $file_opsi = 'file_'.$abj;
-                if(!empty($materi->$file_opsi)){
-                    if(file_exists($path.$materi->$file_opsi)){
-                        unlink($path.$materi->$file_opsi);
-                    }
-                }
-            }
-        }
+        // foreach($chk as $id){
+        //     $abjad = ['a'];
+        //     $path = FCPATH.'uploads/bank_soal/';
+        //     $materi = $this->materi->getMateriById($id);
+        //     // Hapus File Soal
+        //     if(!empty($materi->file)){
+        //         if(file_exists($path.$materi->file)){
+        //             unlink($path.$materi->file);
+        //         }
+        //     }
+        //     //Hapus File Opsi
+        //     $i = 0; //index
+        //     foreach ($abjad as $abj) {
+        //         $file_opsi = 'file_'.$abj;
+        //         if(!empty($materi->$file_opsi)){
+        //             if(file_exists($path.$materi->$file_opsi)){
+        //                 unlink($path.$materi->$file_opsi);
+        //             }
+        //         }
+        //     }
+        // }
 
         if(!$chk){
             $this->output_json(['status'=>false]);
@@ -219,6 +242,56 @@ class Materi extends CI_Controller {
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }
+    }
+
+    public function saver()
+    {
+        $method = $this->input->post('method', true);
+        $this->validasi();
+        $this->file_config();
+        if($this->form_validation->run() === FALSE){
+            $data = [
+                'matkul_id' => $this->input->post('matkul_id', true),
+                'judul_materi' => $this->input->post('judul_materi', true),
+                'isi_materi'   => $this->input->post('isi_materi', true),
+            ];
+            $data['update_on'] = time();
+            //update data
+            $id_materi = $this->input->post('id_materi', true);
+            //insert data
+            $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
+        }else{
+            $data = [
+                'matkul_id' => $this->input->post('matkul_id', true),
+                'judul_materi' => $this->input->post('judul_materi', true),
+                'isi_materi'   => $this->input->post('isi_materi', true),
+            ];
+            $data['update_on'] = time();
+            //update data
+            $id_materi = $this->input->post('id_materi', true);
+            //insert data
+            $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
+            // if ($goit) {
+            //     $this->output_json(['status' => true]);
+            // } else {
+            //     $this->output_json(['status' => true]);
+            // }
+
+
+            // if($method==='add'){
+            //     //push array
+            // }else if($method==='edit'){
+            //     //push array
+            //     $data['update_on'] = time();
+            //     //update data
+            //     $id_materi = $this->input->post('id_materi', true);
+            //     $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
+            // }else{
+            //     show_error('Method tidak diketahui', 404);
+            // }
+        }
+        redirect('materi');
+
     }
 
     // public function saves()
@@ -304,8 +377,8 @@ class Materi extends CI_Controller {
     //         }else if($method==='edit'){
     //             //push array
     //             $data['update_on'] = time();
-    //             //update data
-    //             $id_materi = $this->input->post('id_materi', true);
+                // //update data
+                // $id_materi = $this->input->post('id_materi', true);
     //             $this->master->update('tb_materi', $data, 'id_materi', $id_materi);
     //         }else{
     //             show_error('Method tidak diketahui', 404);

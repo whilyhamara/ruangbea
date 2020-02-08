@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2020 at 01:51 PM
+-- Generation Time: Feb 08, 2020 at 05:05 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -75,7 +75,8 @@ CREATE TABLE `groups` (
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
 (2, 'dosen', 'Pembuat Soal dan ujian'),
-(3, 'mahasiswa', 'Peserta Ujian');
+(3, 'mahasiswa', 'Peserta Ujian'),
+(5, 'user', 'Pengguna');
 
 -- --------------------------------------------------------
 
@@ -251,7 +252,10 @@ INSERT INTO `matkul` (`id_matkul`, `nama_matkul`) VALUES
 (1, 'Bahasa Inggris'),
 (2, 'Dasar Pemrograman'),
 (3, 'Enterpreneurship'),
-(5, 'Matematika Advanced');
+(5, 'Matematika Advanced'),
+(6, 'TWK'),
+(7, 'TIU'),
+(8, 'TKP');
 
 -- --------------------------------------------------------
 
@@ -306,7 +310,13 @@ CREATE TABLE `tb_materi` (
 --
 
 INSERT INTO `tb_materi` (`id_materi`, `matkul_id`, `file`, `tipe_file`, `judul_materi`, `isi_materi`, `created_on`, `update_on`) VALUES
-(1, 3, '', '', 'ini adalah judul', 'ini adalahg isi', 20291904, NULL);
+(9, 8, '', '', '<p><strong>TKP - 15 Jenis Soal TKP</strong></p>', '<ol><li><em>Soal TKP jenis Pelayanan Publik</em><br>Ciri : Terdapat unsur pelayanan publik.<br>Cara pilih jawaban : Cari yang paling menguntungkan masyarakat banyak.</li><li><em>Soal TKP jenis Sosial Budaya</em><br>Ciri : Terdapat unsur kebijakan publilk.<br>Cara pilh jawaban : Pilih yang mengarah ke bersih, tanpa korupsi, jujur.</li><li><em>Soal TKP jenis Profesionalisme</em><br>Ciri : Ada gangguan terhadap pekerjaan atau ada pilihan pekerjaan dan sesuatu yang lalu.<br>Cara pilih jawaban : Pilih tetap fokus pada pekerjaan apapun gangguannya.</li><li><em>Soal TKP jenis jejaring kerja/kemitraan</em><br>Ciri : Terdapat unsur kinerja, koreksi.<br>Cara pilih jawaban : Pilih yangmencerminkan sikap supel dan terbuka ke semua orang.</li><li><em>Soal TKP jenis Integritas diri</em><br>Ciri : Ada gangguan ke arah korupsi, curang, dll.<br>Cara pilih jawaban : Pilih yang mengarah ke bersih, jujur, tanpa korupsi (fokus ke diri sendiri).</li><li><em>Soal TKP jenis semangat berprestasi</em><br>Ciri: Ada tantangan dalam pekerjaan/ hal baru yang bisa diraih.<br>Cara pilih jawaban : Pilih yang mencerminkan antusiasme, suka tantangan, dan terus belajar.</li><li><em>Soal TKP jenis kreativitas dan inovasi</em><br>Ciri : Ada unsur baru dari pekerjaan.<br>Cara pilih Jawaban : Pilih yang kreatif, bebas, dan out of the box.</li><li><em>Soal TKP jenis orientasi pada pelayanan</em><br>Ciri : Ada unsur pelayanan yang berhubungan dengan layanan ke pihak luar.<br>Cara pilih jawaban : Pilih untuk kepentingan orang lain diluar kepentingan tim/kelompok.</li><li><em>Soal TKP jenis orientasi pada orang lain</em><br>Ciri : Situasi dalam kelompok.<br>Cara pilih jawaban : Pilih yang berorientasi pada orang lain di dalam kelompok,misal rekan kerja.</li><li><em>Soal TKP jenis kemampuan beradaptasi</em><br>Ciri : Ada hal baru yang masuk (atasan, sistem, rekan kerja) atau kita masuk dalam lingkungan kerja yang baru.<br>Cara pilih jawaban : Pilih mencerminkan supel, adaptif, dan dan mau mencoba hal baru yang ada.</li><li><em>Soal TKP jenis Kemampuan mengendalikan diri</em><br>Ciri : Ada ujian (misal gagal ujian, rugi, ditolak, bangkrut)<br>Cara pilih jawaban : Pilih mencerminkan sabar dan menerima kenyataan</li><li><em>Soal TKP jenis kemampuan bekerja mandiri dan tuntas</em><br>Ciri : Ada sesuatu yang menghalangi kita menyelesaikan pekerjaan (tugas, sakit, rapat).<br>Cara pilih jawaban : Pilih mengerjakan tugas oleh diri sendiri dan selesai.</li><li><em>Soal TKP jenis kemampuan bekerja berkelanjutan</em><br>Ciri : Ada unsur diklat, pendidikan, bimbel, dan kursus.<br>Cara pilih jawaban : Pilih keinginan belajar tinggi dan terus menerus.</li><li><em>Soal TKP jenis kemampuan bekerjasama dengan kelompok</em><br>Ciri : Ada tugas/kegiatan kelompok<br>Cara pilih jawaban : Pilih yang bekerjasama dalam kelompok</li><li><em>Soal TKP jenis kemampuan menggerakkan dan mengkoordinir orang</em><br>Ciri : Ada unsur menggerakkan orang lain, biasanya kita sebagai atasan/pimpinan<br>Cara pilih jawaban : Pilih yang berisi perintah kepada orang lain secara jelas.</li></ol>', 1581151829, 1581177875),
+(11, 3, '', '', '<p>ENtseres</p>', '<p>sdfsfg</p>', 1581152398, 1581170616),
+(12, 2, '', '', '<p>Best</p>', '<p>Better</p>', 1581152424, 1581153725),
+(13, 5, '', '', '<p>Math</p>', '<p>EduMath</p>', 1581157226, 1581157226),
+(14, 1, '', '', '<p>BHSinggeris</p>', '<p>okeokebyEEE</p>', 1581170684, 1581170722),
+(15, 3, '', '', '<p>Entryprenes</p>', '<p>aasfafsa</p>', 1581170751, 1581170751),
+(16, 5, '', '', '<p>MathISeasy</p>', '<p>okelahkerjain</p>', 1581170789, 1581170789);
 
 -- --------------------------------------------------------
 
@@ -347,7 +357,9 @@ INSERT INTO `tb_soal` (`id_soal`, `dosen_id`, `matkul_id`, `bobot`, `file`, `tip
 (3, 1, 1, 1, 'd166959dabe9a81e4567dc44021ea503.jpg', 'image/jpeg', '<p>What is the picture describing?</p><p><small class=\"text-muted\">Sumber gambar: meros.jp</small></p>', '<p>The students are arguing with their lecturer.</p>', '<p>The students are watching their preacher.</p>', '<p>The teacher is angry with their students.</p>', '<p>The students are listening to their lecturer.</p>', '<p>The students detest the preacher.</p>', '', '', '', '', '', 'D', 1550226174, 1550226174),
 (5, 3, 5, 1, '', '', '<p>(2000 x 3) : 4 x 0 = ...</p>', '<p>NULL</p>', '<p>NaN</p>', '<p>0</p>', '<p>1</p>', '<p>-1</p>', '', '', '', '', '', 'C', 1550289702, 1550289724),
 (6, 3, 5, 1, '98a79c067fefca323c56ed0f8d1cac5f.png', 'image/png', '<p>Nomor berapakah ini?</p>', '<p>Sembilan</p>', '<p>Sepuluh</p>', '<p>Satu</p>', '<p>Tujuh</p>', '<p>Tiga</p>', '', '', '', '', '', 'D', 1550289774, 1550289774),
-(7, 1, 1, 1, '', '', '<p>zcz</p>', '<p>zzcz</p>', '<p>zczcczc</p>', '<p>czczc</p>', '<p>czczcz</p>', '<p>czcz</p>', '', '', '', '', '', 'C', 1579505893, 1579505893);
+(7, 1, 1, 1, '', '', '<p>zcz</p>', '<p>zzcz</p>', '<p>zczcczc</p>', '<p>czczc</p>', '<p>czczcz</p>', '<p>czcz</p>', '', '', '', '', '', 'C', 1579505893, 1579505893),
+(8, 3, 5, 7, '', '', '<p>ehehehe</p>', '<p>ohoh</p>', '<p>re</p>', '<p>sdgf</p>', '<p>sdfs</p>', '<p>sfs</p>', '', '', '', '', '', 'C', 1580900430, 1580900430),
+(9, 1, 1, 1, '', '', '<p>asdasd</p>', '<p>a</p>', '<p>d</p>', '<p>f</p>', '<p>da</p>', '<p>ad</p>', '', '', '', '', '', 'D', 1581047742, 1581047742);
 
 -- --------------------------------------------------------
 
@@ -382,9 +394,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'Administrator', '$2y$12$tGY.AtcyXrh7WmccdbT1rOuKEcTsKH6sIUmDr0ore1yN4LnKTTtuu', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1579512768, 1, 'Admin', 'Istrator', 'ADMIN', '0'),
-(3, '::1', '12183018', '$2y$10$9PYqZev2HunPhMPX7VvoDO24wVkt0mBa/N1atxBCGzFJgIZLOUsCa', 'mghifariarfan@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550225511, 1579697359, 1, 'Muhammad', 'Arfananda', NULL, NULL),
-(4, '::1', '12345678', '$2y$12$xVYcg/x0z7gF.flyrelShepbluLpeGDr.n6.KCY0yMpY8Yu1asKZ.', 'korosensei@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550226286, 1579696967, 1, 'Koro', 'Sensei', NULL, NULL),
+(1, '127.0.0.1', 'Administrator', '$2y$12$tGY.AtcyXrh7WmccdbT1rOuKEcTsKH6sIUmDr0ore1yN4LnKTTtuu', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1581177819, 1, 'Admin', 'Istrator', 'ADMIN', '0'),
+(3, '::1', '12183018', '$2y$10$9PYqZev2HunPhMPX7VvoDO24wVkt0mBa/N1atxBCGzFJgIZLOUsCa', 'mghifariarfan@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550225511, 1581177643, 1, 'Muhammad', 'Arfananda', NULL, NULL),
+(4, '::1', '12345678', '$2y$12$xVYcg/x0z7gF.flyrelShepbluLpeGDr.n6.KCY0yMpY8Yu1asKZ.', 'korosensei@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550226286, 1581043263, 1, 'Koro', 'Sensei', NULL, NULL),
 (8, '::1', '01234567', '$2y$10$5pAJAyB3XvrGEkvGak2QI.1pWqwK/S76r3Pf4ltQSGQzLMpw53Tvy', 'tobirama@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550289356, 1550743585, 1, 'Tobirama', 'Sensei', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -542,7 +554,7 @@ ALTER TABLE `dosen`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `h_ujian`
@@ -578,7 +590,7 @@ ALTER TABLE `kelas_dosen`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
@@ -590,7 +602,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `matkul`
 --
 ALTER TABLE `matkul`
-  MODIFY `id_matkul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_matkul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `m_ujian`
@@ -602,13 +614,13 @@ ALTER TABLE `m_ujian`
 -- AUTO_INCREMENT for table `tb_materi`
 --
 ALTER TABLE `tb_materi`
-  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  MODIFY `id_soal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_soal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`

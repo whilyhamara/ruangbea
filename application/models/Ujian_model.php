@@ -99,19 +99,19 @@ class Ujian_model extends CI_Model {
         return $this->db->get()->row()->list_jawaban;
     }
 
-    public function getHasilUjian($nip = null)
+    public function getHasilUjian()
     {
-        $this->datatables->select('b.id_ujian, b.nama_ujian, b.jumlah_soal, CONCAT(b.waktu, " Menit") as waktu, b.tgl_mulai');
+        $this->datatables->select('b.id_ujian, b.nama_ujian, c.nama_matkul, b.jumlah_soal, CONCAT(b.waktu, " Menit") as waktu, b.tgl_mulai');
         // $this->datatables->select('c.nama_matkul, d.nama_dosen');
-        $this->datatables->select('c.nama_matkul');
+        // $this->datatables->select('c.nama_matkul');
         $this->datatables->from('h_ujian a');
         $this->datatables->join('m_ujian b', 'a.ujian_id = b.id_ujian');
         $this->datatables->join('matkul c', 'b.matkul_id = c.id_matkul');
         //$this->datatables->join('dosen d', 'b.dosen_id = d.id_dosen');
         $this->datatables->group_by('b.id_ujian');
-        if($nip !== null){
-             $this->datatables->where('d.nip', $nip);
-        }
+        // if($nip !== null){
+        //      $this->datatables->where('d.nip', $nip);
+        // }
         return $this->datatables->generate();
     }
 

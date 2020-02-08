@@ -40,7 +40,7 @@ $(document).ready(function() {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + "materi/data",
+      url: base_url + "materi/datam",
       type: "POST"
     },
     columns: [
@@ -68,7 +68,7 @@ $(document).ready(function() {
         data: "id_materi",
         render: function(data, type, row, meta) {
           return `<div class="text-center">
-                                    <input name="checked[]" class="check" value="${data}" type="checkbox">
+                                    <input name="checked[]" class="check" value="${data}" type="checkbox" disabled>
                                 </div>`;
         }
       },
@@ -80,12 +80,7 @@ $(document).ready(function() {
           return `<div class="text-center">
                     <a href="${base_url}materi/detail/${data}" class="btn btn-xs btn-default">
                       <i class="fa fa-eye"></i> Detail
-                    </a>
-                           
-                    <a href="${base_url}materi/edit/${data}" class="btn btn-xs btn-warning">
-                      <i class="fa fa-edit"></i> Edit
-                    </a>
-                    
+                    </a>                    
                   </div>`;
         }
       }
